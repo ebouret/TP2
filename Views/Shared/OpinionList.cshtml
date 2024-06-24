@@ -1,0 +1,71 @@
+﻿@model TPLOCAL1.Models.OpinionList
+
+
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>Liste des avis</title>
+        <link rel="stylesheet" href="~/resources/Index.css" />
+    </head>
+
+<body>
+
+    <header>
+        <img src="~/resources/GroupeHN.png" class="image" alt="GroupeHN" />
+        <h1>Liste des avis</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="~/Home/Index">Accueil</a></li>
+            <li><a href="~/Home/Index/Form">Formulaire</a></li>
+        </ul>
+    </nav>
+
+    <table>
+        <tr>
+            <th>Liste</th>
+        </tr>
+        <tr>
+            <th>Nom</th>
+        </tr>
+        <tr>
+            <th>Prénom</th>
+        </tr>
+        <tr>
+            <th>Avis donné</th>
+        </tr>
+
+        @{
+            foreach (var avis in Model.GetAvis("~/XlmFile/DataAvis.xml"))
+            {
+                <tr>
+                    <td>@avis.LastName</td>
+                </tr>
+                <tr>
+                    <td>@avis.FirstName</td>
+                </tr>
+                <tr >
+                    @if(@avis.OpinionGiven.Substring(0, 1) == "Y")
+                    {
+                        <td style="background-color:green">@avis.OpinionGiven</td>
+                    }
+                    else
+                    {
+                        <td style="background-color:red">@avis.OpinionGiven</td>
+                    }
+                </tr>
+
+
+            }
+            
+        }
+
+    </table>
+        
+
+</body>
+
+</html>

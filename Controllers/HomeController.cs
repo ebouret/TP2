@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
+using System.Composition;
 using TPLOCAL1.Models;
 
 //Subject is find at the root of the project and the logo in the wwwroot/ressources folders of the solution
@@ -23,6 +23,7 @@ namespace TPLOCAL1.Controllers
                 {
                     case "OpinionList":
                         //TODO : code reading of the xml files provide
+
                         return View(id);
                     case "Form":
                         //TODO : call the Form view with data model empty
@@ -37,12 +38,22 @@ namespace TPLOCAL1.Controllers
 
         //methode to send datas from form to validation page
         [HttpPost]
-        public ActionResult ValidationFormulaire(/*model*/)
+        [ValidateAntiForgeryToken]
+        public ActionResult ValidationFormulaire([Bind("Id,Nom,Prenom,Sexe,Adresse,CodePostal,Ville,Mail,DebutDate,Formation,Cobol,CS")]Form form)
         {
             //TODO : test if model's fields are set
             //if not, display an error message and stay on the form page
             //else, call ValidationForm with the datas set by the user
-            return null;
+            if (!ModelState.IsValid)
+            {
+                return View("Views/Shared/Form.cshtml",form);
+            }
+            else
+            {
+                return View(form);
+            }
+            
+
 
         }
     }
